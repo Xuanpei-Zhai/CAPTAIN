@@ -1,0 +1,54 @@
+#!/bin/bash
+#SBATCH -J step3_2_demux
+#SBATCH -o ~/code/log/step3_2_demux_out
+#SBATCH -e ~/code/log/step3_2_demux_error
+#SBATCH -p dm_pub_cpu
+#SBATCH -N 1
+#SBATCH -n 32
+#SBATCH --time=3-00:00:00
+source ~/code/workflow/config.sh
+
+
+python "$CODE_DIR"/search_barcode/search_fastq_lj_pro.py -i "$WORK_DIR"/barcode01/fastq/cpu2 -o "$WORK_DIR"/barcode01/cpu2/search_output -s GTCTCGTGGGCTCGG -t 26
+python "$CODE_DIR"/search_barcode/search_fastq_lj_pro.py -i "$WORK_DIR"/barcode02/fastq/cpu2 -o "$WORK_DIR"/barcode02/cpu2/search_output -s GTCTCGTGGGCTCGG -t 26
+python "$CODE_DIR"/search_barcode/search_fastq_lj_pro.py -i "$WORK_DIR"/barcode03/fastq/cpu2 -o "$WORK_DIR"/barcode03/cpu2/search_output -s GTCTCGTGGGCTCGG -t 26
+python "$CODE_DIR"/search_barcode/search_fastq_lj_pro.py -i "$WORK_DIR"/barcode04/fastq/cpu2 -o "$WORK_DIR"/barcode04/cpu2/search_output -s GTCTCGTGGGCTCGG -t 26
+python "$CODE_DIR"/search_barcode/search_fastq_lj_pro.py -i "$WORK_DIR"/barcode05/fastq/cpu2 -o "$WORK_DIR"/barcode05/cpu2/search_output -s GTCTCGTGGGCTCGG -t 26
+python "$CODE_DIR"/search_barcode/search_fastq_lj_pro.py -i "$WORK_DIR"/barcode06/fastq/cpu2 -o "$WORK_DIR"/barcode06/cpu2/search_output -s GTCTCGTGGGCTCGG -t 26
+python "$CODE_DIR"/search_barcode/search_fastq_lj_pro.py -i "$WORK_DIR"/barcode07/fastq/cpu2 -o "$WORK_DIR"/barcode07/cpu2/search_output -s GTCTCGTGGGCTCGG -t 26
+python "$CODE_DIR"/search_barcode/search_fastq_lj_pro.py -i "$WORK_DIR"/barcode08/fastq/cpu2 -o "$WORK_DIR"/barcode08/cpu2/search_output -s GTCTCGTGGGCTCGG -t 26
+python "$CODE_DIR"/search_barcode/search_fastq_lj_pro.py -i "$WORK_DIR"/barcode09/fastq/cpu2 -o "$WORK_DIR"/barcode09/cpu2/search_output -s GTCTCGTGGGCTCGG -t 26
+python "$CODE_DIR"/search_barcode/search_fastq_lj_pro.py -i "$WORK_DIR"/barcode10/fastq/cpu2 -o "$WORK_DIR"/barcode10/cpu2/search_output -s GTCTCGTGGGCTCGG -t 26
+
+
+
+
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode01/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode01/cpu2/barcode_match1_output -s1 ACAG -s2 GTCA 
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode01/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode01/cpu2/barcode_match2_output -s1 ACAG -s2 GTCA -r
+
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode02/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode02/cpu2/barcode_match1_output -s1 ACAG -s2 GTCA 
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode02/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode02/cpu2/barcode_match2_output -s1 ACAG -s2 GTCA -r
+
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode03/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode03/cpu2/barcode_match1_output -s1 ACAG -s2 GTCA 
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode03/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode03/cpu2/barcode_match2_output -s1 ACAG -s2 GTCA -r
+
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode04/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode04/cpu2/barcode_match1_output -s1 ACAG -s2 GTCA 
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode04/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode04/cpu2/barcode_match2_output -s1 ACAG -s2 GTCA -r
+
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode05/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode05/cpu2/barcode_match1_output -s1 ACAG -s2 GTCA 
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode05/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode05/cpu2/barcode_match2_output -s1 ACAG -s2 GTCA -r
+
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode06/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode06/cpu2/barcode_match1_output -s1 ACAG -s2 GTCA 
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode06/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode06/cpu2/barcode_match2_output -s1 ACAG -s2 GTCA -r
+
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode07/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode07/cpu2/barcode_match1_output -s1 ACAG -s2 GTCA 
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode07/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode07/cpu2/barcode_match2_output -s1 ACAG -s2 GTCA -r
+
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode08/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode08/cpu2/barcode_match1_output -s1 ACAG -s2 GTCA 
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode08/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode08/cpu2/barcode_match2_output -s1 ACAG -s2 GTCA -r
+
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode09/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode09/cpu2/barcode_match1_output -s1 ACAG -s2 GTCA 
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode09/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode09/cpu2/barcode_match2_output -s1 ACAG -s2 GTCA -r
+
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode10/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode10/cpu2/barcode_match1_output -s1 ACAG -s2 GTCA 
+python "$CODE_DIR"/search_barcode/search_barcode_lj_pro.py -i "$WORK_DIR"/barcode10/cpu2/search_output -e "$CODE_DIR"/search_barcode/barcode_seq.xlsx -o "$WORK_DIR"/barcode10/cpu2/barcode_match2_output -s1 ACAG -s2 GTCA -r
