@@ -7,7 +7,7 @@
 #SBATCH -n 32
 #SBATCH --time=3-00:00:00
 #SBATCH --exclude=dm-c02n03
-source ~/code/workflow/config.sh
+source ~/CAP-seq/workflow/config.sh
 
 
 python "$CODE_DIR"/search_barcode/search_fastq_dyn_pro.py -i "$WORK_DIR"/barcode01/fastq/cpu9 -o "$WORK_DIR"/barcode01/cpu9/search_output -s GTGATCTCGCTC -t 20

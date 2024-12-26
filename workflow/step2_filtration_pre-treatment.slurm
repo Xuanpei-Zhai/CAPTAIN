@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH -J step2_filt
-#SBATCH -o /dm_data/zhaixp/20241204-dyn-soil/step2_filt_out
-#SBATCH -e /dm_data/zhaixp/20241204-dyn-soil/step2_filt_error
+#SBATCH -o /dm_data/zhaixp/step2_filt_out
+#SBATCH -e /dm_data/zhaixp/step2_filt_error
 #SBATCH -p dm_pub_cpu
 #SBATCH -N 1
 #SBATCH -n 16
 #SBATCH --time=3-00:00:00
 
-source ~/code/workflow/config.sh
+source ~/CAP-seq/workflow/config.sh
 
 cd "$WORK_DIR" || exit 1
 

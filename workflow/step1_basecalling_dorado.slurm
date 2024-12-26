@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -J step1_basecalling
-#SBATCH -o /dm_data/zhaixp/20241217-dyn-soil/step1_basecalling_out
-#SBATCH -e /dm_data/zhaixp/20241217-dyn-soil/step1_basecalling_error
+#SBATCH -o /dm_data/zhaixp/step1_basecalling_out
+#SBATCH -e /dm_data/zhaixp/step1_basecalling_error
 #SBATCH -p dm_pub_gpu
 #SBATCH -N 1 
 #SBATCH -n 16

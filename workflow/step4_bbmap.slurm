@@ -1,14 +1,14 @@
 #!/bin/bash 
 #SBATCH -J step4_demux
-#SBATCH -o $WORK_DIR/step4_demux_out
-#SBATCH -e $WORK_DIR/step4_demux_error
+#SBATCH -o /dm_data/zhaixp/step4_demux_out
+#SBATCH -e /dm_data/zhaixp/step4_demux_error
 #SBATCH -p dm_pub_cpu
 #SBATCH -N 1
 #SBATCH -n 32
 #SBATCH --time=1-00:00:00
 #SBATCH --exclude=dm-c02n03 
 
-source ~/code/workflow/config.sh
+source ~/CAP-seq/workflow/config.sh
 
 cd "$WORK_DIR"
 

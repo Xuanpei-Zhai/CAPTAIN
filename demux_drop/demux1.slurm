@@ -1,12 +1,14 @@
 #!/bin/bash
 #SBATCH -J step3_1_demux
-#SBATCH -o ~/code/log/step3_1_demux_out
-#SBATCH -e ~/code/log/step3_1_demux_error
 #SBATCH -p dm_pub_cpu
+#SBATCH -o /dm_data/zhaixp/step3_1_demux_out
+#SBATCH -e /dm_data/zhaixp/step3_1_demux_error
 #SBATCH -N 1
 #SBATCH -n 32
 #SBATCH --time=3-00:00:00
-source ~/code/workflow/config.sh
+#SBATCH --exclude=dm-c02n03
+
+source ~/CAP-seq/workflow/config.sh
 
 
 python "$CODE_DIR"/search_barcode/search_fastq_lj_pro.py -i "$WORK_DIR"/barcode01/fastq/cpu1 -o "$WORK_DIR"/barcode01/cpu1/search_output -s GTCTCGTGGGCTCGG -t 26

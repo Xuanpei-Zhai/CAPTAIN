@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/code/workflow/config.sh
+source ~/CAP-seq/workflow/config.sh
 
 if [ "$MODE" == "drop" ]; then
     sbatch "$CODE_DIR/demux_drop/demux1.slurm"
