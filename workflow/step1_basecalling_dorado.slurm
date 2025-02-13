@@ -8,5 +8,6 @@
 #SBATCH --time=3-00:00:00
 #SBATCH --gres=gpu:1 
 
+source ~/CAPTAIN/workflow/config.sh
 
-/home_data/home/spst/zhaixp2022/dorado-0.8.3-linux-x64/bin/dorado basecaller /home_data/home/spst/zhaixp2022/dorado-0.8.3-linux-x64/bin/dna_r10.4.1_e8.2_400bps_sup@v5.0.0/ /dm_data/zhaixp/20250122-dyn/folder2/ --emit-fastq > /dm_data/zhaixp/20250122-dyn/calls3.fastq
+$DORADO_PATH basecaller $KIT_PATH $POD5_DIR --emit-fastq > "$WORK_DIR/calls.fastq"

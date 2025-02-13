@@ -8,7 +8,8 @@
 #SBATCH --time=3-00:00:00
 #SBATCH --exclude=dm-c02n03
 source ~/CAPTAIN/workflow/config.sh
-
+source ~/anaconda3/etc/profile.d/conda.sh
+conda activate captain
 python "$CODE_DIR"/search_barcode/search_fastq_dyn_pro.py -i "$WORK_DIR"/barcode01/fastq/cpu6 -o "$WORK_DIR"/barcode01/cpu6/search_output -s GTGATCTCGCTC -t 20
 python "$CODE_DIR"/search_barcode/search_fastq_dyn_pro.py -i "$WORK_DIR"/barcode02/fastq/cpu6 -o "$WORK_DIR"/barcode02/cpu6/search_output -s GTGATCTCGCTC -t 20
 python "$CODE_DIR"/search_barcode/search_fastq_dyn_pro.py -i "$WORK_DIR"/barcode03/fastq/cpu6 -o "$WORK_DIR"/barcode03/cpu6/search_output -s GTGATCTCGCTC -t 20

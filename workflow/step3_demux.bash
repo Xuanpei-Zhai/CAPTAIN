@@ -1,8 +1,6 @@
 #!/bin/bash
 
 source ~/CAPTAIN/workflow/config.sh
-source ~/anaconda3/etc/profile.d/conda.sh
-conda activate captain
 
 if [ "$MODE" == "drop" ]; then
     sbatch "$CODE_DIR/demux/demux_drop/demux1.slurm"

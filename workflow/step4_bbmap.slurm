@@ -48,4 +48,4 @@ do
 done
 
 
-python /home_data/home/spst/zhaixp2022/CAPTAIN/demux/statistical_bbmap.py -i $WORK_DIR/bbmap_output -o $WORK_DIR/ -s 1000
+python $CODE_DIR/demux/statistical_bbmap.py -i $WORK_DIR/bbmap_output -o $WORK_DIR/ -s 1000
