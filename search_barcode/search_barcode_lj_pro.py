@@ -5,19 +5,27 @@ import os
 import multiprocessing as mp
 from Bio import SeqIO
 from Bio.Seq import Seq
-from Bio import pairwise2
+from Bio.Align import PairwiseAligner
 import glob
 
 def reverse_complement(sequence):
     return str(Seq(sequence).reverse_complement())
 
 def fuzzy_match(query_seq, white_list):
+    aligner = PairwiseAligner()
+    aligner.mode = 'global'
+    aligner.match_score = 1
+    aligner.mismatch_score = -1
+    aligner.open_gap_score = -1
+    aligner.extend_gap_score = -1
+
     for subseq in white_list:
-        alignments = pairwise2.align.globalms(subseq, query_seq, 1, -1, -1, -1)
-        if alignments and alignments[0][2] >= len(subseq) - 2:
+        alignments = aligner.align(subseq, query_seq)
+        if alignments and alignments[0].score >= len(subseq) - 2:
             query_seq = subseq
             return True, query_seq
     return False, query_seq
+
 
 def process_file(fastq_file, col1, col2, col3, output_folder, fixed_seq1, fixed_seq2, reverse, process_id):
     # 创建每个进程的子文件夹

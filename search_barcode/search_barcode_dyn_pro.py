@@ -5,7 +5,7 @@ import os
 import multiprocessing as mp
 from Bio import SeqIO
 from Bio.Seq import Seq
-from Bio import pairwise2
+from Bio.Align import PairwiseAligner
 import glob
 
 
@@ -14,23 +14,34 @@ def reverse_complement(sequence):
 
 
 def fuzzy_match_global(query_seq, white_list):
+    aligner = PairwiseAligner()
+    aligner.mode = 'global'
+    aligner.match_score = 1
+    aligner.mismatch_score = -1
+    aligner.open_gap_score = -1
+    aligner.extend_gap_score = -1
 
     for subseq in white_list:
-        alignments = pairwise2.align.globalms(subseq, query_seq ,1, -1 , -1 ,-1)
-        if alignments and alignments[0][2] >= len(subseq) - 2:
+        alignments = aligner.align(subseq, query_seq)
+        if alignments and alignments[0].score >= len(subseq) - 2:
             query_seq = subseq
             return True, query_seq
-        
     return False, query_seq
 
 def fuzzy_match_local(query_seq, white_list):
-    for subseq in white_list:
-        alignments = pairwise2.align.localms(subseq, query_seq ,2, -1 , -1 ,-1)
-        if alignments and alignments[0][2] >= 2*len(subseq) - 7:
-            match_start = alignments[0][3] - 1
-            match_end = alignments[0][4]
-            return True, query_seq[match_start:match_end], match_start, match_end
+    aligner = PairwiseAligner()
+    aligner.mode = 'local'
+    aligner.match_score = 2
+    aligner.mismatch_score = -1
+    aligner.open_gap_score = -1
+    aligner.extend_gap_score = -1
 
+    for subseq in white_list:
+        alignments = aligner.align(subseq, query_seq)
+        if alignments and alignments[0].score >= 2 * len(subseq) - 7:
+            match_start = alignments[0].aligned[0][0][0]
+            match_end = alignments[0].aligned[0][-1][-1]
+            return True, query_seq[match_start:match_end], match_start, match_end
     return False, query_seq, None, None
 
 

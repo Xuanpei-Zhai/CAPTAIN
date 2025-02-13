@@ -24,6 +24,17 @@ elif [ "$MODE" == "split" ]; then
     sbatch "$CODE_DIR/demux_split/demux8.slurm"
     sbatch "$CODE_DIR/demux_split/demux9.slurm"
     sbatch "$CODE_DIR/demux_split/demux10.slurm"
+elif [ "$MODE" == "16s" ]; then
+    sbatch "$CODE_DIR/demux_16s/demux1.slurm"
+    sbatch "$CODE_DIR/demux_16s/demux2.slurm"
+    sbatch "$CODE_DIR/demux_16s/demux3.slurm"
+    sbatch "$CODE_DIR/demux_16s/demux4.slurm"
+    sbatch "$CODE_DIR/demux_16s/demux5.slurm"
+    sbatch "$CODE_DIR/demux_16s/demux6.slurm"
+    sbatch "$CODE_DIR/demux_16s/demux7.slurm"
+    sbatch "$CODE_DIR/demux_16s/demux8.slurm"
+    sbatch "$CODE_DIR/demux_16s/demux9.slurm"
+    sbatch "$CODE_DIR/demux_16s/demux10.slurm"
 else
     echo "Unknown MODE: $MODE. Please set MODE to 'drop' or 'split'."
     exit 1

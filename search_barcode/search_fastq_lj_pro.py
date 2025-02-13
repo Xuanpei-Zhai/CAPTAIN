@@ -4,7 +4,7 @@ import os
 import argparse
 from Bio import SeqIO
 from Bio.Seq import Seq
-from Bio import pairwise2
+from Bio.Align import PairwiseAligner
 import multiprocessing as mp
 
 
@@ -26,16 +26,41 @@ def reverse_complement(seq):
 
 # 定义函数：Smith-Waterman算法匹配
 def smith_waterman(seq1, seq2):
-    alns = pairwise2.align.localms(seq1, seq2, 2, -1, -1, -1, gap_char="-")
-    if not alns:
+    # 初始化比对器
+    aligner = PairwiseAligner()
+    aligner.mode = 'local'  # 设置为局部比对
+    aligner.match_score = 2  # 匹配得分
+    aligner.mismatch_score = -1  # 不匹配得分
+    aligner.open_gap_score = -1  # 打开缺口罚分
+    aligner.extend_gap_score = -1  # 扩展缺口罚分
+
+    # 执行比对
+    alignments = aligner.align(seq1, seq2)
+
+    # 如果没有比对结果，返回默认值
+    if not alignments:
         return [None, None, 0, 0, None, None]
-    sorted_alns = sorted(alns, key=lambda x: -x[2])
+
+    # 按得分排序比对结果
+    sorted_alignments = sorted(alignments, key=lambda x: -x.score)
+
+    # 获取最佳比对结果
+    top_alignment = sorted_alignments[0]
+    top_score = top_alignment.score
+    top_aln_start = top_alignment.aligned[0][0][0]  # 比对起始位置
+    top_aln_end = top_alignment.aligned[0][-1][-1]  # 比对结束位置
+
+    # 获取次优比对得分
     try:
-        second_top_score = sorted_alns[1][2]
+        second_top_score = sorted_alignments[1].score
     except IndexError:
         second_top_score = 0
-    seq1_match,seq2_match, top_score, top_aln_start, top_aln_end = sorted_alns[0][:5]
-    return [str(seq1_match), seq2_match, int(top_score), int(second_top_score), int(top_aln_start), int(top_aln_end)]
+
+    # 获取比对序列
+    seq1_match = str(top_alignment.target)
+    seq2_match = str(top_alignment.query)
+
+    return [seq1_match, seq2_match, int(top_score), int(second_top_score), int(top_aln_start), int(top_aln_end)]
 
 def process_fastq(file_path, specific_seq, threshold, process_id, output_folder):
     # 创建每个进程的临时文件夹

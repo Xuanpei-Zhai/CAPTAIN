@@ -4,15 +4,18 @@
 #SBATCH -e /dm_data/zhaixp/step2_filt_error
 #SBATCH -p dm_pub_cpu
 #SBATCH -N 1
-#SBATCH -n 16
+#SBATCH -n 32
 #SBATCH --time=3-00:00:00
+#SBATCH --exclude=dm-c02n03
 
 source ~/CAP-seq/workflow/config.sh
+source ~/anaconda3/etc/profile.d/conda.sh
+conda activate CAP-seq
 
 cd "$WORK_DIR" || exit 1
 
 # 过滤和拆分FASTQ文件
-NanoFilt -q 15 -l 20 --maxlength 60000 calls.fastq > calls_filt.fastq
+NanoFilt -q 15 -l 20 --maxlength 3000 calls.fastq > calls_filt.fastq
 seqkit split2 -f --quiet -j 16 -O fastq -s 10000 calls_filt.fastq
 
 # 创建目标文件夹

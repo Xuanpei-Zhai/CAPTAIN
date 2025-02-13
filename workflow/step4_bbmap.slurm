@@ -2,7 +2,7 @@
 #SBATCH -J step4_demux
 #SBATCH -o /dm_data/zhaixp/step4_demux_out
 #SBATCH -e /dm_data/zhaixp/step4_demux_error
-#SBATCH -p dm_pub_cpu
+#SBATCH -p dm_debug
 #SBATCH -N 1
 #SBATCH -n 32
 #SBATCH --time=1-00:00:00
@@ -15,7 +15,7 @@ cd "$WORK_DIR"
 find ./barcode*/cpu*/barcode_match*_output/process_* -type f -name "*.fastq" -print0 | xargs -0 cat >> ./bbmap_input_nocut.fastq
 
 
-cutadapt -g AGATGTGTATAAGAGACAG -O 9 -a CTGTCTCTTATACACATCT -O 10 -m 50 --cores 64 -e 0.15 -o ./bbmap_input.fastq ./bbmap_input_nocut.fastq 
+cutadapt -g AGATGTGTATAAGAGACAG -O 9 -a CTGTCTCTTATACACATCT -O 10 -m 50 --cores 32 -e 0.15 -o ./bbmap_input.fastq ./bbmap_input_nocut.fastq 
 
 
 # 设置输入和输出目录
@@ -28,7 +28,7 @@ mkdir -p $SPLIT_DIR
 mkdir -p $OUTPUT_DIR
 
 # 确定拆分文件的数量
-NUM_FILES=10
+NUM_FILES=30
 
 # 获取文件中的总行数
 TOTAL_LINES=$(wc -l < $INPUT_FILE)
@@ -46,4 +46,4 @@ do
 done
 
 
-python /home_data/home/spst/zhaixp2022/code/statistical_bbmap.py -i $WORK_DIR/bbmap_output -o $WORK_DIR/ -s 10000
+python /home_data/home/spst/zhaixp2022/CAP-seq/statistical_bbmap.py -i $WORK_DIR/bbmap_output -o $WORK_DIR/ -s 1000

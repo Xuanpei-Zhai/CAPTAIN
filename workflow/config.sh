@@ -1,7 +1,7 @@
 # config.sh
 
 # 数据位置
-WORK_DIR="/dm_data/zhaixp/20241129-dyn-ocean"
+WORK_DIR="/dm_data/zhaixp/20241217-dyn-ocean"
 
 # 代码位置
 CODE_DIR="/home_data/home/spst/zhaixp2022/CAP-seq"
