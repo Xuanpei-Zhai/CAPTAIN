@@ -8,9 +8,9 @@
 #SBATCH --time=3-00:00:00
 #SBATCH --exclude=dm-c02n03
 
-source ~/CAP-seq/workflow/config.sh
+source ~/CAPTAIN/workflow/config.sh
 source ~/anaconda3/etc/profile.d/conda.sh
-conda activate CAP-seq
+conda activate captain
 
 cd "$WORK_DIR" || exit 1
 

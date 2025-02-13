@@ -8,7 +8,9 @@
 #SBATCH --time=1-00:00:00
 #SBATCH --exclude=dm-c02n03 
 
-source ~/CAP-seq/workflow/config.sh
+source ~/CAPTAIN/workflow/config.sh
+source ~/anaconda3/etc/profile.d/conda.sh
+conda activate captain
 
 cd "$WORK_DIR"
 
@@ -46,4 +48,4 @@ do
 done
 
 
-python /home_data/home/spst/zhaixp2022/CAP-seq/statistical_bbmap.py -i $WORK_DIR/bbmap_output -o $WORK_DIR/ -s 1000
+python /home_data/home/spst/zhaixp2022/CAPTAIN/demux/statistical_bbmap.py -i $WORK_DIR/bbmap_output -o $WORK_DIR/ -s 1000
