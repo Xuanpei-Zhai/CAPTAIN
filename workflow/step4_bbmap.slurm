@@ -1,7 +1,7 @@
 #!/bin/bash 
 #SBATCH -J step4_demux
-#SBATCH -o /dm_data/zhaixp/step4_demux_out
-#SBATCH -e /dm_data/zhaixp/step4_demux_error
+#SBATCH -o /dm_data/zhaixp/step4_demux_out0210
+#SBATCH -e /dm_data/zhaixp/step4_demux_error0210
 #SBATCH -p dm_debug
 #SBATCH -N 1
 #SBATCH -n 32

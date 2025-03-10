@@ -23,7 +23,9 @@ def fuzzy_match_global(query_seq, white_list):
 
     for subseq in white_list:
         alignments = aligner.align(subseq, query_seq)
-        if alignments and alignments[0].score >= len(subseq) - 2:
+        # 按得分排序比对结果
+        sorted_alignments = sorted(alignments, key=lambda x: -x.score)
+        if sorted_alignments[0] and sorted_alignments[0].score >= len(subseq) - 2:
             query_seq = subseq
             return True, query_seq
     return False, query_seq
@@ -37,10 +39,13 @@ def fuzzy_match_local(query_seq, white_list):
     aligner.extend_gap_score = -1
 
     for subseq in white_list:
-        alignments = aligner.align(subseq, query_seq)
-        if alignments and alignments[0].score >= 2 * len(subseq) - 7:
-            match_start = alignments[0].aligned[0][0][0]
-            match_end = alignments[0].aligned[0][-1][-1]
+        alignments = aligner.align(query_seq,subseq)
+        # 按得分排序比对结果
+        sorted_alignments = sorted(alignments, key=lambda x: -x.score)
+
+        if sorted_alignments[0] and sorted_alignments[0].score >= 2 * len(subseq) - 7:
+            match_start = sorted_alignments[0].aligned[0][0][0]
+            match_end = sorted_alignments[0].aligned[0][-1][-1]
             return True, query_seq[match_start:match_end], match_start, match_end
     return False, query_seq, None, None
 
@@ -59,11 +64,14 @@ def process_file(fastq_file, col1, col2, col3, output_folder, fixed_seq1, fixed_
         for record in SeqIO.parse(fastq_file, "fastq"):
             counts['total_seqs'] += 1
 
+
             barcode_sequence = record.description.split("_")[-1]
             if reverse:
                 sequence = reverse_complement(barcode_sequence)
             else:
                 sequence = barcode_sequence
+            if not sequence:
+                continue
 
             fuzzy_match_seq1 = fuzzy_match_local(sequence, [fixed_seq1])
             fuzzy_match_seq2 = fuzzy_match_local(sequence, [fixed_seq2])
@@ -79,6 +87,9 @@ def process_file(fastq_file, col1, col2, col3, output_folder, fixed_seq1, fixed_
                     barcode1 = sequence[:index1_start]
                     barcode2 = sequence[index1_end:index2_start]
                     barcode3 = sequence[index2_end:]
+
+                    if not barcode1 or not barcode2 or not barcode3:
+                        continue
 
 
                     barcode1_flag = 0

@@ -21,7 +21,9 @@ def fuzzy_match(query_seq, white_list):
 
     for subseq in white_list:
         alignments = aligner.align(subseq, query_seq)
-        if alignments and alignments[0].score >= len(subseq) - 2:
+        # 按得分排序比对结果
+        sorted_alignments = sorted(alignments, key=lambda x: -x.score)
+        if sorted_alignments[0] and sorted_alignments[0].score >= len(subseq) - 2:
             query_seq = subseq
             return True, query_seq
     return False, query_seq
@@ -54,6 +56,8 @@ def process_file(fastq_file, col1, col2, col3, output_folder, fixed_seq1, fixed_
                 barcode1 = sequence[:index1]
                 barcode2 = sequence[index1 + len(fixed_seq1):index2]
                 barcode3 = sequence[index2 + len(fixed_seq2):]
+                if not barcode1 or not barcode2 or not barcode3:
+                    continue
                 
                 barcode1_flag, barcode1 = fuzzy_match(barcode1, col1)
                 barcode2_flag, barcode2 = fuzzy_match(barcode2, col2)

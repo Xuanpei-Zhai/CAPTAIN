@@ -15,7 +15,14 @@ conda activate captain
 cd "$WORK_DIR" || exit 1
 
 # 过滤和拆分FASTQ文件
-NanoFilt -q 15 -l 20 --maxlength 3000 calls.fastq > calls_filt.fastq
+if [ "$MODE" == "16s" ]; then
+# 过滤和拆分FASTQ文件
+  NanoFilt -q 15 -l 20 --maxlength 3000 calls.fastq > calls_filt.fastq
+else
+  NanoFilt -q 15 -l 20 --maxlength 100000 calls.fastq > calls_filt.fastq
+fi
+
+
 seqkit split2 -f --quiet -j 16 -O fastq -s 10000 calls_filt.fastq
 
 # 创建目标文件夹

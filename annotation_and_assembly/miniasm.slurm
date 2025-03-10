@@ -1,16 +1,17 @@
 #!/bin/bash
 #SBATCH -J miniasm_array
-#SBATCH -o /dm_data/zhaixp/20241217-dyn-soil/log/miniasm_out_%A_%a.out
-#SBATCH -e /dm_data/zhaixp/20241217-dyn-soil/log/miniasm_error_%A_%a.err
+#SBATCH -o /dm_data/zhaixp/20241112-lmz-ocean/log/miniasm_out_%A_%a.out
+#SBATCH -e /dm_data/zhaixp/20241112-lmz-ocean/log/miniasm_error_%A_%a.err
 #SBATCH -p dm_pub_cpu
 #SBATCH -N 1
 #SBATCH -n 32
 #SBATCH --time=3-00:00:00
-#SBATCH --exclude=dm-c02n03
 #SBATCH --array=1-999
 
 # 设置工作目录
-cd /dm_data/zhaixp/20241217-dyn-soil/
+cd /dm_data/zhaixp/20241112-lmz-ocean/
+
+ls ./bbmap_output_many_seqs/*.fastq > ./file_list.txt
 
 # 创建输出文件夹
 mkdir -p miniasm_paf_output

@@ -9,8 +9,8 @@
 
 
 # 输入目录和输出目录
-input_dir="/dm_data/zhaixp/20241107-dyn-soil/bbmap_output_many_seqs"
-output_dir="/dm_data/zhaixp/20241107-dyn-soil/metaphlan_output/"
+input_dir="/dm_data/zhaixp/20241204-dyn-soil/bbmap_output_many_seqs"
+output_dir="/dm_data/zhaixp/20241204-dyn-soil/metaphlan_output/"
 
 # 创建输出目录如果它不存在
 mkdir -p "$output_dir"
